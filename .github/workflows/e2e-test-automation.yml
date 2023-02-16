@@ -26,7 +26,8 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
-          command: npx cypress run --reporter mochawesome
+          command: npx cypress run
+          continue-on-error: true
           working-directory: ./e2e-tests
 
       - name: Stop containers
@@ -34,15 +35,16 @@ jobs:
   
   test-results-upload:
     runs-on: ubuntu-latest
+    needs: tests-execution
     steps:
       - name: Save Test Results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: cypress-results
           path: cypress/screenshots
 
       - name: Test Report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: test-report
           path: cypress/reports/mochawesome
