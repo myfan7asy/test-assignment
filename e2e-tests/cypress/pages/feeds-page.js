@@ -37,23 +37,23 @@ class FeedsPage extends Base {
 
     clickAllFeedsButton() {
         this.findAnElement(this.allFeedsButtonSelector)
-        .click()
+            .click()
     }
 
     clickNewFeedButton() {
         this.findAnElement(this.newFeedButtonSelector)
-        .click()
+            .click()
     }
 
     populateFeedUrlInput(feedUrl) {
         this.findAnElement(this.feedURLInputSelector)
-        .clear()
-        .type(feedUrl)
+            .clear()
+            .type(feedUrl)
     }
 
     clickSubmitCTA() {
         this.findAnElement(this.submitCTASelector)
-        .click()
+            .click()
     }
 
     assertFeedUrlValue(valueToCompareWith) {
@@ -66,7 +66,7 @@ class FeedsPage extends Base {
 
     clickMyFeedsButton() {
         this.findAnElement(this.myFeedsButtonSelector)
-        .click()
+            .click()
     }
 
     assertDuplicatedFeedValidationIsTriggered() {
@@ -74,12 +74,12 @@ class FeedsPage extends Base {
     }
     openAnyFeed() {
         this.findAnElement(this.anyFeedSelector)
-        .click()
+            .click()
     }
 
     clickHeartIcon() {
         this.findAnElement(this.heartIconSelector)
-        .click()
+            .click()
     }
 
     assertHearIconIsStyled() {
@@ -88,7 +88,7 @@ class FeedsPage extends Base {
 
     clickLogoutCTA() {
         this.findAnElement(this.logoutCTASelector)
-        .click()
+            .click()
     }
 
     assertLoginButtonVisibility() {
@@ -97,7 +97,7 @@ class FeedsPage extends Base {
 
     clickNextPageIcon() {
         this.findAnElement(this.nextPageIconSelector)
-        .click()
+            .click()
     }
 
     assertUrlHasSecondPageParameter() {
@@ -106,14 +106,14 @@ class FeedsPage extends Base {
 
     openAnArticle() {
         this.findAnElement(this.anyArticleSelector)
-        .click()
+            .click()
     }
 
     populateCommentInputWithItalicText() {
         this.findAnElement(this.commentInputSelector)
-        .type(`*${randomComment}*`)
+            .type(`*${randomComment}*`)
     }
-    
+
     assertSuccessfulCommentMessage() {
         this.assertElementVisibility(this.successfulCommentPostMessageSelector)
     }

@@ -28,6 +28,7 @@ class Helper {
           password2: pwd
         },
       })
+      cy.clearCookies()
     })
     return creds
   }

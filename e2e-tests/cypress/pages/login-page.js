@@ -1,5 +1,4 @@
 require('cypress-xpath');
-/// <reference types="cypress-xpath" />
 
 const { Base } = require("./base-page");
 
