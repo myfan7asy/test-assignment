@@ -4,42 +4,47 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  tests-execution:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
+        - name: Setup Node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: "16.x"
 
-      - name: Install all required dependecies
-        run: npm install
-        working-directory: ./e2e-tests
-      
-      - name: Build and start containers
-        run: docker-compose up -d
-
-      - name: Run all tests from 'cypress/e2e' folder
-        uses: cypress-io/github-action@v4
-        with:
-          browser: chrome
-          command: npx cypress run
+        - name: Install all required dependecies
+          run: npm install
           working-directory: ./e2e-tests
-      
-      - name: Stop containers
-        run: docker-compose down
+        
+        - name: Build and start containers
+          run: docker-compose up -d
 
-      - name: Save Test Results
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-results
-          path: cypress/results
+        - name: Run all tests from 'cypress/e2e' folder
+          uses: cypress-io/github-action@v4
+          with:
+            browser: chrome
+            command: npx cypress run
+            working-directory: ./e2e-tests
 
-      - name: Test Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-report
-          path: coverage/lcov-report
+        - name: Stop containers
+          run: docker-compose down
+  
+  test-results-upload:
+    needs: tests-execution
+    runs-on: ubuntu-latest
+
+    - name: Save Test Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: cypress-results
+        path: cypress/results
+
+    - name: Test Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-report
+        path: cypress/results
