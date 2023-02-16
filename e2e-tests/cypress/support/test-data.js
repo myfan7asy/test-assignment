@@ -1,7 +1,5 @@
 class TestData {
     feeds = [
-        ["http://feeds.latimes.com/latimes/news", 1],
-        ["https://www.rollingstone.com/music/music-news/feed/", 1],
         ["https://www.vanityfair.com/feed/rss", 1],
         ["https://feeds.feedburner.com/thr/news", 1],
         ["http://feeds.mashable.com/Mashable", 1],

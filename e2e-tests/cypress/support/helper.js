@@ -71,7 +71,7 @@ class Helper {
       uniqueFeedUrl = feed[0];
       break;
     }
-    return uniqueFeedUrl
+    return uniqueFeedUrl;
   }
 }
 

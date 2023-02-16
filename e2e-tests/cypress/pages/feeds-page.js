@@ -4,7 +4,7 @@ const { Base } = require("./base-page");
 const { Helper } = require("../support/helper");
 
 const helper = new Helper
-const randomComment = helper.generateUniqId()
+const randomComment = helper.generateUniqId("test")
 
 class FeedsPage extends Base {
     logoutCTASelector = "//a[text()='Logout']"

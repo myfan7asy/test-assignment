@@ -5,7 +5,7 @@ const { TestData } = require("../../support/test-data");
 describe('Tests related to [All Feeds, My Feeds, Bookmarked]', () => {
     const helper = new Helper
     const feedsPage = new FeedsPage
-    const testData = new TestData
+    const testData = new TestData()
 
     beforeEach(() => {
         const registeredAccount = helper.registerAccount()
