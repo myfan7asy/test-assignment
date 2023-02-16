@@ -33,7 +33,6 @@ jobs:
         run: docker-compose down
   
   test-results-upload:
-    needs: tests-execution
     runs-on: ubuntu-latest
     steps:
       - name: Save Test Results
