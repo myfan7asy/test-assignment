@@ -15,8 +15,8 @@ jobs:
         with:
           node-version: "16.x"
 
-      - name: Install all required dependecies
-        run: npm install
+      - name: Install all required dependencies
+        run: npm ci
         working-directory: ./e2e-tests
       
       - name: Build and start containers
@@ -27,7 +27,6 @@ jobs:
         with:
           browser: chrome
           command: npx cypress run
-          continue-on-error: true
           working-directory: ./e2e-tests
 
       - name: Stop containers
@@ -36,15 +35,16 @@ jobs:
   test-results-upload:
     runs-on: ubuntu-latest
     needs: tests-execution
+    if: always()
     steps:
       - name: Save Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: cypress-results
           path: cypress/screenshots
 
       - name: Test Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: test-report
-          path: cypress/reports/mochawesome
+          path: cypress/reports/mochawesome/*.json
