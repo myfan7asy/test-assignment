@@ -1,6 +1,7 @@
 class Helper {
   generateUniqId(string) {
-    return string + (Math.random() + 1).toString(36).substring(2)
+    let randomStr = (Math.random() + 1).toString(36).substring(2)
+    return `${string}${randomStr}`
   }
 
   registerAccount() {

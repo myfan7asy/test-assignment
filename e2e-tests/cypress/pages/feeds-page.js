@@ -1,7 +1,10 @@
 require('cypress-xpath');
-/// <reference types="cypress-xpath" />
 
 const { Base } = require("./base-page");
+const { Helper } = require("../support/helper");
+
+const helper = new Helper
+const randomComment = helper.generateUniqId()
 
 class FeedsPage extends Base {
     logoutCTASelector = "//a[text()='Logout']"
@@ -22,7 +25,7 @@ class FeedsPage extends Base {
     anyArticleSelector = "//tr[1]/td[1]/a[1]"
     commentInputSelector = "//div[@class='CodeMirror-lines']"
     successfulCommentPostMessageSelector = "//div[text()='Comment added successfully']"
-    postedCommentSelector = "//em[text()='testcomment12331x']"
+    postedCommentSelector = `//em[text()='${randomComment}']`
 
     assertLogoutCTAVisibility() {
         this.assertElementVisibility(this.logoutCTASelector)
@@ -108,7 +111,7 @@ class FeedsPage extends Base {
 
     populateCommentInputWithItalicText() {
         this.findAnElement(this.commentInputSelector)
-        .type('*testcomment12331x*')
+        .type(`*${randomComment}*`)
     }
     
     assertSuccessfulCommentMessage() {
