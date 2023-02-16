@@ -6,7 +6,7 @@ const { Base } = require("./base-page");
 class SignUpPage extends Base {
     userNameInputSelector = "//input[@id='id_username']"
     passwordInputSelector = "//input[@id='id_password1']"
-    passwordConfirmationInputSelector = "//input[@id='id_password2']"
+    password2InputSelector = "//input[@id='id_password2']"
     submitCTASelector = "//input[@id='submit-id-submit']"
     userNameValidationMessageSelector = "//span[@id='error_1_id_username']"
     passwordValidationMessageSelector = "//span[@id='error_1_id_password1']"
@@ -14,27 +14,26 @@ class SignUpPage extends Base {
     passwordDidnotMatchValidationMessageSelector = "//span[@id='error_1_id_password2']"
     duplicateUserNameValidationMessageSelector = "//strong[text()='A user with that username already exists.']"
 
-    completeUserName() {
+    completeUserNameInput(un) {
         this.findAnElement(this.userNameInputSelector)
-        .clear()
-        .type('sayhello1230011')
+            .clear()
+            .type(un)
     }
 
-    completePasswordWithValidValue() {
+    completePasswordInput(pwd) {
         this.findAnElement(this.passwordInputSelector)
-        .clear()
-        .type('eee3216767eee')
+            .clear()
+            .type(pwd)
     }
-
-    completePasswordWithMatchingValue() {
-        this.findAnElement(this.passwordConfirmationInputSelector)
-        .clear()
-        .type('eee3216767eee')
+    completePassword2Input(pwd) {
+        this.findAnElement(this.password2InputSelector)
+            .clear()
+            .type(pwd)
     }
 
     clickSubmitCTA() {
         this.findAnElement(this.submitCTASelector)
-        .click()
+            .click()
     }
 
     assertUserNameValidationIsTriggered() {
@@ -43,26 +42,14 @@ class SignUpPage extends Base {
 
     assertPasswordValidationIsTriggered() {
         this.assertElementVisibility(this.passwordValidationMessageSelector)
-    }    
+    }
 
     assertPasswordConfirmationValidationIsTriggered() {
         this.assertElementVisibility(this.passwordConfirmationValidationMessageSelector)
     }
 
-    completePasswordWithNotMatchingValue() {
-        this.findAnElement(this.passwordConfirmationInputSelector)
-        .clear()
-        .type('eee3216767eee33')
-    }
-
     assertPasswordDidnotMatchValidationIsTriggered() {
         this.assertElementVisibility(this.passwordDidnotMatchValidationMessageSelector)
-    }
-
-    completeUserNameWithTakenValue() {
-        this.findAnElement(this.userNameInputSelector)
-        .clear()
-        .type('test')
     }
 
     assertUserNameDuplicateValidationIsTriggered() {
