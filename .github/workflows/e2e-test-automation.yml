@@ -36,15 +36,15 @@ jobs:
   test-results-upload:
     needs: tests-execution
     runs-on: ubuntu-latest
+    steps:
+      - name: Save Test Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-results
+          path: cypress/results
 
-    - name: Save Test Results
-      uses: actions/upload-artifact@v2
-      with:
-        name: cypress-results
-        path: cypress/results
-
-    - name: Test Report
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-report
-        path: cypress/results
+      - name: Test Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-report
+          path: cypress/results
