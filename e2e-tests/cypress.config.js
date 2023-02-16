@@ -1,21 +1,19 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
-  reporter: 'mochawesome',
-})
+  reporter: 'cypress-mochawesome-reporter',
+  e2e: {
+    setupNodeEvents(on, config) {
+      require('cypress-mochawesome-reporter/plugin')(on);
+    },
+  },
+});
 
 module.exports = defineConfig({
   viewportHeight: 1080,
   viewportWidth: 1920,
   watchForFileChanges: false,
   includeShadowDom: true,
-  defaultCommandTimeout: 5000,
-  env: {
-    // implement node event listeners here
-  },
-  e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
-  },
-});
+  defaultCommandTimeout: 5000
+})
+
