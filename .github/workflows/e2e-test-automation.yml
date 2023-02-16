@@ -31,3 +31,15 @@ jobs:
       
       - name: Stop containers
         run: docker-compose down
+
+      - name: Save Test Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-results
+          path: cypress/results
+
+      - name: Test Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-report
+          path: coverage/lcov-report
