@@ -20,7 +20,7 @@ jobs:
         working-directory: ./e2e-tests
       
       - name: Build and start containers
-        run: docker-compose up
+        run: docker-compose up -d
 
       - name: Run all tests from 'cypress/e2e' folder
         uses: cypress-io/github-action@v4
