@@ -314,3 +314,6 @@ typings/
 
 # next.js build output
 .next
+
+# Tests-related files
+e2e-tests/node_modules/
