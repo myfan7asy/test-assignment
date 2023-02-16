@@ -1,0 +1,78 @@
+name: Run end-to-end tests
+
+on:
+  workflow_dispatch:
+
+services:
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: crispy
+    volumes:
+      - ./tmp/pgdata:/var/lib/postgresql/data:rw
+
+  worker:
+    build: .
+    links:
+      - db
+    depends_on:
+      - db
+    volumes:
+      - .:/code
+    command:
+      sh worker.sh
+
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    depends_on:
+      - db
+    volumes:
+      - .:/code
+    command: >
+      bash -c "
+        while ! python manage.py migrate; do
+          sleep 5
+          echo '--- waiting for pg'
+        done
+        python manage.py runserver 0.0.0.0:8000"
+    environment:
+      DJANGO_SETTINGS_MODULE: crispy.settings.docker
+
+jobs:
+  build:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+      
+      - name: Build and start containers
+        run: docker-compose up -d
+
+      - name: Wait for containers to start
+        run: sleep 15s
+
+      - name: Install all required dependencies
+        run: npm install
+        working-directory: ./e2e-tests
+
+      - name: Run all tests from 'cypress/e2e' folder
+        uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
+          command: npx cypress run
+          working-directory: ./e2e-tests
+      
+      - name: Stop containers
+        run: docker-compose down
